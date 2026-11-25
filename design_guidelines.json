@@ -1,0 +1,308 @@
+{
+  "project_name": "League Master - Cross League",
+  "app_type": "mobile_web_app",
+  "language": "fr",
+  "target_dimensions": {
+    "mobile_portrait": "390px x 844px (iPhone 14/15 frame)",
+    "desktop": "Adaptive responsive desktop view with mobile framing option or stage presentation"
+  },
+  "theming": {
+    "compositions": {
+      "table_de_collection": {
+        "id": "table",
+        "label": "Table de collection",
+        "description": "Scène sombre et tactile, surface graphite brossé, lumière or chaude, reflets discrets, profondeur feutrée autour du booster.",
+        "bg_color": "#0B0D10",
+        "surface_texture": "linear-gradient(145deg, #12151B 0%, #090B0E 100%)",
+        "light_accent": "rgba(234, 179, 8, 0.18)",
+        "light_accent_rgb": "234, 179, 8",
+        "border_color": "rgba(234, 179, 8, 0.22)",
+        "shadow_ambient": "0 20px 50px -10px rgba(0, 0, 0, 0.85), 0 0 40px rgba(234, 179, 8, 0.08)",
+        "pedestal_glow": "radial-gradient(circle at 50% 65%, rgba(217, 119, 6, 0.25) 0%, transparent 65%)"
+      },
+      "arene_cross_league": {
+        "id": "arene",
+        "label": "Arène Cross League",
+        "description": "Staging sportif et architectural, cadrage vertical dynamique, éclairage latéral argenté (cyan-silver), néons froids, accents or statutaires, blasons de ligue intégrés.",
+        "bg_color": "#080B12",
+        "surface_texture": "radial-gradient(circle at 50% 20%, #131A29 0%, #06080F 100%)",
+        "light_accent": "rgba(148, 163, 184, 0.25)",
+        "light_accent_rgb": "148, 163, 184",
+        "border_color": "rgba(56, 189, 248, 0.25)",
+        "shadow_ambient": "0 25px 60px -15px rgba(0, 0, 0, 0.95), 0 0 50px rgba(56, 189, 248, 0.12)",
+        "pedestal_glow": "radial-gradient(circle at 50% 60%, rgba(56, 189, 248, 0.2) 0%, rgba(234, 179, 8, 0.12) 40%, transparent 70%)"
+      }
+    }
+  },
+  "typography": {
+    "font_family_headings": "Outfit, Clash Display, Cabinet Grotesk, sans-serif",
+    "font_family_body": "Inter, system-ui, sans-serif",
+    "font_family_mono": "JetBrains Mono, monospace",
+    "font_weights": {
+      "headings": "font-extrabold tracking-tight",
+      "labels": "font-bold uppercase tracking-widest text-xs",
+      "numbers": "font-black tracking-tight"
+    },
+    "hierarchy": {
+      "h1_hero": "text-3xl sm:text-4xl font-extrabold leading-tight",
+      "h2_section": "text-2xl sm:text-3xl font-bold leading-snug",
+      "h3_card_title": "text-lg sm:text-xl font-bold",
+      "body_regular": "text-sm sm:text-base leading-relaxed text-zinc-300",
+      "body_small": "text-xs sm:text-sm text-zinc-400",
+      "badge_counter": "text-xs font-mono font-semibold"
+    }
+  },
+  "color_palette": {
+    "brand_gold": {
+      "primary": "#EAB308",
+      "light": "#FDE047",
+      "dark": "#A16207",
+      "glow": "rgba(234, 179, 8, 0.35)",
+      "gradient_action": "linear-gradient(135deg, #FDE047 0%, #EAB308 50%, #CA8A04 100%)",
+      "rule": "Réservé exclusivement aux commandes principales ('Ouvrir', 'Continuer'), aux insignes League Master et aux accents de marque prestigieux. Jamais utilisé comme fond banal."
+    },
+    "rarity_tokens": {
+      "Commun": {
+        "name": "Commun",
+        "color_code": "#94A3B8",
+        "bg_badge": "bg-slate-500/20 text-slate-300 border-slate-500/30",
+        "border_card": "border-slate-500/40",
+        "halo_color": "rgba(148, 163, 184, 0.3)",
+        "gradient": "from-slate-700/60 via-slate-800/80 to-slate-900/90"
+      },
+      "Peu commun": {
+        "name": "Peu commun",
+        "color_code": "#22C55E",
+        "bg_badge": "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
+        "border_card": "border-emerald-500/50",
+        "halo_color": "rgba(34, 197, 94, 0.4)",
+        "gradient": "from-emerald-950/60 via-slate-900/80 to-slate-950/90"
+      },
+      "Rare": {
+        "name": "Rare",
+        "color_code": "#3B82F6",
+        "bg_badge": "bg-blue-500/20 text-blue-300 border-blue-500/30",
+        "border_card": "border-blue-500/50",
+        "halo_color": "rgba(59, 130, 246, 0.45)",
+        "gradient": "from-blue-950/70 via-slate-900/80 to-slate-950/90"
+      },
+      "Epique": {
+        "name": "Épique",
+        "color_code": "#A855F7",
+        "bg_badge": "bg-purple-500/20 text-purple-300 border-purple-500/30",
+        "border_card": "border-purple-500/60",
+        "halo_color": "rgba(168, 85, 247, 0.5)",
+        "gradient": "from-purple-950/70 via-slate-900/80 to-slate-950/90"
+      },
+      "Legendaire": {
+        "name": "Légendaire",
+        "color_code": "#F97316",
+        "bg_badge": "bg-orange-500/20 text-orange-300 border-orange-500/30",
+        "border_card": "border-orange-500/70",
+        "halo_color": "rgba(249, 115, 22, 0.6)",
+        "gradient": "from-amber-950/70 via-stone-900/80 to-stone-950/90"
+      },
+      "Unique": {
+        "name": "Unique",
+        "color_code": "#F59E0B",
+        "bg_badge": "bg-amber-400/20 text-amber-200 border-amber-400/40",
+        "border_card": "border-amber-400/80",
+        "halo_color": "rgba(245, 158, 11, 0.75)",
+        "gradient": "from-amber-900/60 via-purple-950/40 to-slate-950/95",
+        "is_iridescent": true,
+        "shimmer_effect": "linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.4) 50%, transparent 80%)"
+      }
+    }
+  },
+  "image_urls": {
+    "player_portrait_standard": {
+      "url": "https://images.unsplash.com/photo-1622445272461-c6580cab8755?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTV8MHwxfHNlYXJjaHwxfHx5b3VuZyUyMG1hbiUyMHdoaXRlJTIwdHNoaXJ0JTIwcG9ydHJhaXR8ZW58MHx8fHwxNzk1NjQ5NzM2fDA&ixlib=rb-4.1.0&q=85",
+      "category": "portraits",
+      "description": "Portrait de joueur esport AETxTizow en maillot blanc, casque de pro-gamer, regard déterminé (version standard pour carte Rare/Épique)."
+    },
+    "player_portrait_unique": {
+      "url": "https://images.unsplash.com/photo-1600603406200-5b2a104684ac?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTV8MHwxfHNlYXJjaHwyfHx5b3VuZyUyMG1hbiUyMHdoaXRlJTIwdHNoaXJ0JTIwcG9ydHJhaXR8ZW58MHx8fHwxNzk1NjQ5NzM2fDA&ixlib=rb-4.1.0&q=85",
+      "category": "portraits",
+      "description": "Portrait AETxTizow prestige pour la carte 'Unique', maillot blanc épuré, pose iconique victorieuse."
+    },
+    "surface_texture_graphite": {
+      "url": "https://images.unsplash.com/photo-1666555038185-8323c553de64?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1Mjh8MHwxfHNlYXJjaHwzfHxkYXJrJTIwbWV0YWxsaWMlMjB0ZXh0dXJlJTIwY2FyYm9ufGVufDB8fHx8MTc5NTY0OTc0MHww&ixlib=rb-4.1.0&q=85",
+      "category": "backgrounds",
+      "description": "Grain graphite subtil pour la composition Table de collection."
+    }
+  },
+  "visual_enhancers": {
+    "foil_packshot": {
+      "aspect_ratio": "0.62 (largeur 240px, hauteur 385px)",
+      "treatment": "Black metallic foil, liseré or/argent, pliure supérieure thermosoudée avec crantage réaliste, badge central en relief, reflet holographique qui suit l'orientation du curseur/toucher.",
+      "text": "CROSS LEAGUE • 10 CARTES • ÉDITION OFFICIELLE"
+    },
+    "card_finishes": {
+      "Standard": "Finition mate lisse avec vernis sélectif sur le cadre.",
+      "Brillant": "Reflet miroir argenté avec balayage lumineux oblique.",
+      "Holographique": "Spectre multicolore irisé avec diffraction prismatique lors du tilt."
+    },
+    "interactive_tilt": {
+      "max_rotation": "12deg sur les axes X et Y",
+      "perspective": "1000px",
+      "smoothness": "spring avec damping 25, stiffness 180"
+    }
+  },
+  "flow_and_states": {
+    "step_1_ouverture": {
+      "description": "Scène de préparation avec le booster central réactif au curseur/tactile, carrousel horizontal (Réserve gratuite 3/10 avec timer 04:28:12, Booster d'équipe AETHRA, Pack Pro quotidien 10 cartes). Bouton 'Ouvrir' or éclatant bien visible.",
+      "test_ids": {
+        "booster_card": "booster-card-interactive",
+        "open_button": "open-booster-button",
+        "reserve_indicator": "reserve-counter-badge",
+        "timer_display": "booster-countdown-timer",
+        "direction_selector": "composition-direction-selector",
+        "level_rewards_drawer": "level-rewards-trigger-button",
+        "carousel_prev": "booster-carousel-prev",
+        "carousel_next": "booster-carousel-next"
+      }
+    },
+    "step_2_revelation": {
+      "description": "Séquence dynamique de 5 cartes distribuées dans l'ordre: Commun -> Rare -> Rare -> Épique -> Unique. Affichage du gain d'XP par carte (+20 XP, +50 XP, etc.), de la rareté minimale garantie et du pourcentage de chance de surclassement. Le pourcentage grimpe entre les deux Rares successives (ex: 28% -> 42%). La dernière carte est posée face cachée avec halo pulsant et se retourne d'un clic pour révéler le joueur AETxTizow en finition Brillant/Unique.",
+      "test_ids": {
+        "card_reveal_container": "card-reveal-stage",
+        "next_card_button": "reveal-next-card-button",
+        "flip_card_action": "reveal-flip-card-action",
+        "xp_gain_badge": "reveal-xp-gain-badge",
+        "upgrade_chance_indicator": "reveal-upgrade-chance-stat",
+        "skip_button": "reveal-skip-all-button"
+      }
+    },
+    "step_3_recapitulatif": {
+      "description": "Vue d'ensemble des 5 cartes obtenues sur un éventail interactif, avec mise en valeur 'NOUVEAU', total d'XP engrangé, bouton 'Voir dans le Classeur' et bouton 'Nouvelle ouverture / Réinitialiser'.",
+      "test_ids": {
+        "recap_grid": "recap-cards-grid",
+        "view_binder_button": "recap-view-in-binder-button",
+        "reset_draw_button": "recap-reset-draw-button"
+      }
+    },
+    "step_4_classeur": {
+      "description": "Grille de collection 'Classeur' avec filtres dynamiques (Équipe: Tous / AETHRA / Solwing / Nova ; Rareté: Toutes / Commun / Peu commun / Rare / Épique / Unique ; Finition: Toutes / Standard / Brillant / Holographique ; Possession: Toutes / Possédées / Manquantes). Cartes manquantes sous forme de silhouettes ombrées avec numéro de variante (ex: #042/150). Les cartes fraîchement tirées portent un badge pulsant 'RÉCENT'.",
+      "test_ids": {
+        "binder_grid": "binder-cards-grid",
+        "filter_team": "binder-filter-team-select",
+        "filter_rarity": "binder-filter-rarity-select",
+        "filter_finish": "binder-filter-finish-select",
+        "filter_owned": "binder-filter-owned-toggle",
+        "search_input": "binder-search-input",
+        "progress_counter": "binder-completion-stats"
+      }
+    }
+  },
+  "bottom_dock_navigation": {
+    "items": [
+      {"id": "boutique", "label": "Boutique", "icon": "ShoppingBag", "active": false},
+      {"id": "classeur", "label": "Classeur", "icon": "BookOpen", "active": true},
+      {"id": "marche", "label": "Marché", "icon": "ArrowLeftRight", "active": false},
+      {"id": "ouverture", "label": "Ouverture", "icon": "Sparkles", "active": true, "is_main": true},
+      {"id": "sac", "label": "Sac", "icon": "Briefcase", "active": false},
+      {"id": "succes", "label": "Succès", "icon": "Trophy", "active": false},
+      {"id": "classements", "label": "Classements", "icon": "BarChart3", "active": false}
+    ],
+    "dock_style": "fixed bottom-0 inset-x-0 z-40 bg-zinc-950/80 backdrop-blur-xl border-t border-zinc-800/80 px-2 py-2 flex justify-around items-center max-w-md mx-auto sm:max-w-2xl sm:rounded-t-2xl"
+  },
+  "game_lore_and_mock_data": {
+    "user_profile": {
+      "nickname": "CrossMaster_99",
+      "level": 14,
+      "current_xp": 1820,
+      "next_level_xp": 2500,
+      "gold_credits": 4850,
+      "free_pack_reserve": "3/10",
+      "timer_seconds_remaining": 15912
+    },
+    "fixed_draw_sequence": [
+      {
+        "id": "draw-1",
+        "card_no": "CL-084",
+        "name": "Sentinelle Aethra",
+        "role": "Support Tactique",
+        "team": "AETHRA",
+        "rarity": "Commun",
+        "finish": "Standard",
+        "xp_granted": 25,
+        "next_min_guaranteed": "Rare",
+        "upgrade_chance_percent": 18,
+        "is_new": false
+      },
+      {
+        "id": "draw-2",
+        "card_no": "CL-037",
+        "name": "Vanguard Nova",
+        "role": "Initiateur Flash",
+        "team": "Nova Corps",
+        "rarity": "Rare",
+        "finish": "Standard",
+        "xp_granted": 60,
+        "next_min_guaranteed": "Rare",
+        "upgrade_chance_percent": 28,
+        "is_new": true
+      },
+      {
+        "id": "draw-3",
+        "card_no": "CL-039",
+        "name": "Kryo Sniper",
+        "role": "Tireur Précision",
+        "team": "AETHRA",
+        "rarity": "Rare",
+        "finish": "Brillant",
+        "xp_granted": 85,
+        "next_min_guaranteed": "Rare",
+        "upgrade_chance_percent": 44,
+        "is_new": true
+      },
+      {
+        "id": "draw-4",
+        "card_no": "CL-012",
+        "name": "Matrice Surchargée",
+        "role": "Sort Ultime",
+        "team": "Cross League",
+        "rarity": "Epique",
+        "finish": "Holographique",
+        "xp_granted": 150,
+        "next_min_guaranteed": "Épique",
+        "upgrade_chance_percent": 75,
+        "is_new": true
+      },
+      {
+        "id": "draw-5",
+        "card_no": "CL-001",
+        "name": "AETxTizow",
+        "role": "Capitaine & Duelliste",
+        "team": "AETHRA",
+        "rarity": "Unique",
+        "finish": "Brillant",
+        "xp_granted": 500,
+        "next_min_guaranteed": "Maximum atteint",
+        "upgrade_chance_percent": 100,
+        "is_new": true,
+        "is_face_down_initially": true,
+        "player_image_key": "player_portrait_unique"
+      }
+    ],
+    "full_collection_sample_count": 24
+  },
+  "instructions_to_main_agent": [
+    "Construire une application React fluide en JavaScript (.js), ultra-responsive de 390px (mobile) à l'écran large bureau.",
+    "Fournir le sélecteur discret de mise en scène ('Table de collection' vs 'Arène Cross League') accessible à tout moment en haut de l'écran.",
+    "Implémenter l'effet de tilt gyroscopique/pointer sur le booster packshot à l'étape Ouverture, avec les 3 variantes de packs au swipe (Réserve 3/10 avec compte à rebours, Booster Team AETHRA, Booster Pro 10 cartes).",
+    "Garantir la progression exacte demandée : Commun -> Rare -> Rare -> Épique -> Unique, avec affichage visible de l'XP en hausse et de la probabilité de surclassement (progression entre les 2 Rares).",
+    "La 5ème carte doit impérativement débuter face cachée (dos stylisé League Master), puis se retourner d'un clic avec effet d'animation prestige (finish Brillant/Unique irisé).",
+    "Le Classeur doit permettre de filtrer par équipe (AETHRA, etc.), rareté, finition, et possession (possédées vs silhouettes manquantes #XXX/150).",
+    "Le dock inférieur doit présenter les 7 onglets demandés avec 'Ouverture' et 'Classeur' pleinement interactifs, et des feedbacks élégants pour les autres.",
+    "Tous les éléments interactifs doivent comporter les attributs data-testid spécifiés."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "Dark colors look good when used independently without muddy generic gradients. Use texture and lighting accents.",
+    "Never center align the App container globally (.App { text-align: center; } is banned).",
+    "Every card, button and modal must feature high tactile polish, micro-animations on hover and active states.",
+    "Use Framer Motion with spring physics for natural tactile card feel.",
+    "Strictly follow French language UI throughout all tooltips, labels and stats.",
+    "Provide clear keyboard navigation (Escape to close, Space/Enter to advance card reveal, Arrow keys for booster carousel)."
+  ]
+}

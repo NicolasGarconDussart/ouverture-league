@@ -1,57 +1,69 @@
 import { useEffect } from "react";
+import "lenis/dist/lenis.css";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-import { HOME } from "@/constants/testIds";
+import Lenis from "lenis";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { MotionConfig } from "framer-motion";
+import { Toaster } from "@/components/ui/sonner";
+import { GameProvider, useGame, useReduce } from "@/state/game";
+import { TopBar, Dock } from "@/components/Chrome";
+import Ouverture from "@/pages/Ouverture";
+import Revelation from "@/pages/Revelation";
+import Recap from "@/pages/Recap";
+import Classeur from "@/pages/Classeur";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
+const Smooth = () => {
+  const reduce = useReduce();
+  const { pathname } = useLocation();
   useEffect(() => {
-    helloWorldApi();
-  }, []);
+    if (reduce) return undefined;
+    const lenis = new Lenis({ lerp: 0.1 });
+    window.__lenis = lenis;
+    let id = requestAnimationFrame(function raf(t) {
+      lenis.raf(t);
+      id = requestAnimationFrame(raf);
+    });
+    return () => {
+      cancelAnimationFrame(id);
+      lenis.destroy();
+      window.__lenis = null;
+    };
+  }, [reduce]);
+  useEffect(() => {
+    if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+    else window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
 
+const Shell = () => {
+  const { state } = useGame();
+  const { pathname } = useLocation();
   return (
-    // The marker attribute below lets the platform probe detect the stock splash — remove it with this page
-    <div data-emergent-splash>
-      <header className="App-header">
-        <a
-          data-testid={HOME.emergentLink}
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
+    <MotionConfig reducedMotion={state.reduced ? "always" : "user"}>
+      <Smooth />
+      <div className="app-shell">
+        <TopBar />
+        <Routes>
+          <Route path="/" element={<Ouverture />} />
+          <Route path="/revelation" element={<Revelation />} />
+          <Route path="/recap" element={<Recap />} />
+          <Route path="/classeur" element={<Classeur />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+        {pathname !== "/revelation" && <Dock />}
+      </div>
+      <Toaster theme="dark" position="top-center" />
+    </MotionConfig>
   );
 };
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <GameProvider>
+        <Shell />
+      </GameProvider>
+    </BrowserRouter>
   );
 }
-
-export default App;
