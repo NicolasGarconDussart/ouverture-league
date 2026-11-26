@@ -29,10 +29,22 @@ Prompt 2 (reste du jeu : Accueil, Marché, Boutique, Sac, Succès, Classements) 
 - Classeur : filtres équipe/rareté/finition/possession, silhouettes, numéros de variante, détail ouvrable/fermable.
 - Mouvement réduit (réglage + préférence système), remise à zéro de la démo.
 
+## Implémenté — passe 2 (2026-11-26)
+- Direction « Table de collection » retenue par l’utilisateur et étendue à tout le jeu ; sélecteur et scène Arène retirés.
+- Accueil (logo, vraies cartes, entrée profil démo), dock commun sur 7 écrans.
+- Boutique : classique 100 CC (quota 5/j), demi-display 9 pochettes 800 CC (quota 1/j), display 18 pochettes = lot Twitch, Pro 1000 CC / 7 j (réserve +1 toutes les 5 min, journalier Pro 10 cartes).
+- Journalier Pro ouvrable (tirage 10 cartes simulé, récap en grille).
+- Marché : Acheter / Vendre, recherche, filtre rareté, tri, détail d’annonce, achat, mise en vente des doublons (10 max), retrait.
+- Sac : Scellés (→ Ouverture) / Cartes en double (revente au jeu, vente au Marché), états vides.
+- Succès : 3 objectifs avec lots récupérables, 6 icônes AETHRA (5 membres par palier).
+- Classements : Complétion / Niveau / CC gagnés, top 50, rang personnel même hors top 50.
+- Classeur : filtres compacts (repliables sur mobile).
+- Pas de sons (demande utilisateur).
+
 ## Backlog
-- P0 (Prompt 2) : Accueil, Marché, Boutique, Sac, Succès, Classements dans la direction retenue.
+- P0 : retours utilisateur sur la passe 2.
 - P1 : Classeur plus compact sur mobile (filtres repliables), autres joueurs AETHRA.
-- P2 : sons d’ouverture, retour haptique plus riche.
+- P2 : retour haptique plus riche (sons exclus pour l’instant).
 
 ## Next tasks
-- Attendre le choix de direction de l’utilisateur puis lancer Prompt 2.
+- Recueillir les retours sur la passe 2 avant report sur le vrai jeu.

@@ -11,7 +11,7 @@ export default function Recap() {
   const { state } = useGame();
   const nav = useNavigate();
   const draw = state.lastDraw;
-  if (!draw) return <Navigate to="/" replace />;
+  if (!draw) return <Navigate to="/ouverture" replace />;
   const cards = draw.ids.map(cardByNo);
   const fresh = cards.length - draw.dupes.length;
   const best = RARITIES[Math.max(...cards.map((c) => c.rarity))];
@@ -19,14 +19,14 @@ export default function Recap() {
   return (
     <main className="recap mx-auto max-w-6xl px-4 pb-36 pt-6 sm:px-8 lg:pt-10" data-testid="recap-page">
       <p className="eyebrow">Tirage terminé</p>
-      <MaskedTitle lines={["Récapitulatif"]} className="font-display text-4xl sm:text-5xl lg:text-6xl" testId="page-title" />
+      <MaskedTitle lines={["Récapitulatif"]} className="font-display text-4xl italic sm:text-5xl lg:text-6xl" testId="page-title" />
 
-      <div className="fan mt-8" data-testid="recap-cards-grid">
+      <div className={`${cards.length > 5 ? "recap-grid" : "fan"} mt-8`} data-testid="recap-cards-grid">
         {cards.map((c, k) => (
           <motion.div
-            key={c.no}
+            key={`${c.no}-${k}`}
             className="fan-item"
-            style={{ "--k": k - 2 }}
+            style={{ "--k": cards.length > 5 ? 0 : k - 2 }}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 + k * 0.08, type: "spring", stiffness: 140, damping: 18 }}
@@ -55,7 +55,7 @@ export default function Recap() {
         <button type="button" className="btn-gold flex-1 py-4" onClick={() => nav("/classeur?tirage=1")} data-testid="recap-view-in-binder-button">
           <BookOpen className="h-5 w-5" /> Retrouver le tirage au Classeur
         </button>
-        <button type="button" className="btn-ghost flex-1 py-4" onClick={() => nav("/")} data-testid="recap-reset-draw-button">
+        <button type="button" className="btn-ghost flex-1 py-4" onClick={() => nav("/ouverture")} data-testid="recap-reset-draw-button">
           <RotateCcw className="h-5 w-5" /> Nouvelle ouverture
         </button>
       </div>

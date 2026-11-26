@@ -2,6 +2,7 @@ import { ASSETS } from "../data/game";
 
 const ALT = {
   reserve: "Booster classique Cross League, 5 cartes",
+  classic: "Booster classique Cross League scellé, 5 cartes",
   team: "Booster d’équipe AETHRA, 5 cartes",
   pro: "Booster journalier Pro, 10 cartes",
 };

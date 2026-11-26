@@ -7,10 +7,16 @@ import { MotionConfig } from "framer-motion";
 import { Toaster } from "@/components/ui/sonner";
 import { GameProvider, useGame, useReduce } from "@/state/game";
 import { TopBar, Dock } from "@/components/Chrome";
+import Accueil from "@/pages/Accueil";
 import Ouverture from "@/pages/Ouverture";
 import Revelation from "@/pages/Revelation";
 import Recap from "@/pages/Recap";
 import Classeur from "@/pages/Classeur";
+import Marche from "@/pages/Marche";
+import Boutique from "@/pages/Boutique";
+import Sac from "@/pages/Sac";
+import Succes from "@/pages/Succes";
+import Classements from "@/pages/Classements";
 
 const Smooth = () => {
   const reduce = useReduce();
@@ -39,19 +45,26 @@ const Smooth = () => {
 const Shell = () => {
   const { state } = useGame();
   const { pathname } = useLocation();
+  const home = pathname === "/";
   return (
     <MotionConfig reducedMotion={state.reduced ? "always" : "user"}>
       <Smooth />
       <div className="app-shell">
-        <TopBar />
+        {!home && <TopBar />}
         <Routes>
-          <Route path="/" element={<Ouverture />} />
+          <Route path="/" element={<Accueil />} />
+          <Route path="/ouverture" element={<Ouverture />} />
           <Route path="/revelation" element={<Revelation />} />
           <Route path="/recap" element={<Recap />} />
           <Route path="/classeur" element={<Classeur />} />
+          <Route path="/marche" element={<Marche />} />
+          <Route path="/boutique" element={<Boutique />} />
+          <Route path="/sac" element={<Sac />} />
+          <Route path="/succes" element={<Succes />} />
+          <Route path="/classements" element={<Classements />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-        {pathname !== "/revelation" && <Dock />}
+        {!home && pathname !== "/revelation" && <Dock />}
       </div>
       <Toaster theme="dark" position="top-center" />
     </MotionConfig>

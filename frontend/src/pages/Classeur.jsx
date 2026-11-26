@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { SlidersHorizontal } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../components/ui/dialog";
 import { GameCard, Silhouette } from "../components/GameCard";
@@ -72,6 +73,8 @@ export default function Classeur() {
   const [poss, setPoss] = useState("all");
   const [onlyDraw, setOnlyDraw] = useState(false);
   const [detail, setDetail] = useState(null);
+  const [showFilters, setShowFilters] = useState(false);
+  const activeFilters = (rarity !== "all") + (finish !== "all");
 
   const list = useMemo(
     () =>
@@ -105,10 +108,10 @@ export default function Classeur() {
       <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <p className="eyebrow">Cross League · AETHRA</p>
-          <MaskedTitle lines={["Classeur"]} className="font-display text-4xl sm:text-5xl lg:text-6xl" testId="page-title" />
+          <MaskedTitle lines={["Classeur"]} className="font-display text-4xl italic leading-none sm:text-5xl lg:text-6xl" testId="page-title" />
         </div>
         <div className="panel flex items-center gap-4 p-3 lg:min-w-[460px]" data-testid="binder-completion-stats">
-          <img src={ASSETS.aethra} alt="AETHRA" className="h-11 w-11" />
+          <img src={ASSETS.aethra} alt="AETHRA" className="h-9 w-9 sm:h-11 sm:w-11" />
           <div className="min-w-0 flex-1">
             <div className="flex justify-between text-sm"><span className="font-semibold">AETxTizow</span><span className="font-mono text-xs">{ownedCount}/24</span></div>
             <div className="xpbar mt-1"><span style={{ width: `${(ownedCount / 24) * 100}%` }} /></div>
@@ -136,23 +139,25 @@ export default function Classeur() {
         </div>
       )}
 
-      <div className="panel mt-5 grid grid-cols-2 gap-3 p-4 md:grid-cols-4" data-testid="binder-filters">
-        <Filter label="Équipe" value="aethra" onChange={() => {}} options={[{ value: "aethra", label: "AETHRA" }]} testId="binder-filter-team-select" />
-        <Filter label="Rareté" value={rarity} onChange={setRarity} testId="binder-filter-rarity-select" options={[{ value: "all", label: "Toutes" }, ...RARITIES.map((r, k) => ({ value: String(k), label: r.name }))]} />
-        <Filter label="Finition" value={finish} onChange={setFinish} testId="binder-filter-finish-select" options={[{ value: "all", label: "Toutes" }, ...FINISHES.map((f, k) => ({ value: String(k), label: f }))]} />
-        <div className="col-span-2 flex min-w-0 flex-col gap-1.5 md:col-span-1">
-          <span className="stat-label">Possession</span>
-          <div className="seg" role="radiogroup" aria-label="Possession" data-testid="binder-filter-owned-toggle">
-            {POSS.map((o) => (
-              <button key={o.v} type="button" role="radio" aria-checked={poss === o.v} className={poss === o.v ? "is-on" : ""} onClick={() => setPoss(o.v)} data-testid={`binder-owned-${o.v}`}>
-                {o.l}
-              </button>
-            ))}
-          </div>
+      <div className="filter-bar mt-4" data-testid="binder-filters">
+        <div className="seg min-w-0 flex-1 md:max-w-sm" role="radiogroup" aria-label="Possession" data-testid="binder-filter-owned-toggle">
+          {POSS.map((o) => (
+            <button key={o.v} type="button" role="radio" aria-checked={poss === o.v} className={poss === o.v ? "is-on" : ""} onClick={() => setPoss(o.v)} data-testid={`binder-owned-${o.v}`}>
+              {o.l}
+            </button>
+          ))}
+        </div>
+        <button type="button" className={`chip md:hidden ${showFilters ? "is-on" : ""}`} onClick={() => setShowFilters((v) => !v)} aria-expanded={showFilters} data-testid="binder-filters-toggle">
+          <SlidersHorizontal className="mr-1 inline h-3.5 w-3.5" /> Filtres{activeFilters ? ` · ${activeFilters}` : ""}
+        </button>
+        <div className={`filter-selects ${showFilters ? "is-open" : ""}`}>
+          <Filter label="Équipe" value="aethra" onChange={() => {}} options={[{ value: "aethra", label: "AETHRA" }]} testId="binder-filter-team-select" />
+          <Filter label="Rareté" value={rarity} onChange={setRarity} testId="binder-filter-rarity-select" options={[{ value: "all", label: "Toutes" }, ...RARITIES.map((r, k) => ({ value: String(k), label: r.name }))]} />
+          <Filter label="Finition" value={finish} onChange={setFinish} testId="binder-filter-finish-select" options={[{ value: "all", label: "Toutes" }, ...FINISHES.map((f, k) => ({ value: String(k), label: f }))]} />
         </div>
       </div>
 
-      <p className="mt-5 text-xs text-[var(--muted)]" data-testid="binder-result-count">{list.length} variante{list.length > 1 ? "s" : ""} · démo limitée à AETxTizow (001–024)</p>
+      <p className="mt-4 text-xs text-[var(--muted)]" data-testid="binder-result-count">{list.length} variante{list.length > 1 ? "s" : ""} · démo limitée à AETxTizow (001–024)</p>
 
       <div className="binder-grid mt-3" data-testid="binder-cards-grid">
         {list.map((c, k) => {

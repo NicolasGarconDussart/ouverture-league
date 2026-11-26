@@ -23,7 +23,7 @@ export const SceneTable = (p) => (
       <div className="relative z-[2] flex h-full flex-col">
         <div className="flex items-center justify-between px-5 pt-4 text-xs uppercase tracking-[0.18em] text-[var(--muted)]">
           <span data-testid="slide-title" className="text-[var(--ink)]">{p.slide.title}</span>
-          <span className="font-mono">{String(p.index + 1).padStart(2, "0")} / 03</span>
+          <span className="font-mono">{String(p.index + 1).padStart(2, "0")} / {String(p.slides.length).padStart(2, "0")}</span>
         </div>
         <div className="min-h-0 flex-1">
           <BoosterCarousel {...p} openingId={p.opening} variant="table" boosterClass="w-[min(160px,41vw)] sm:w-[220px] lg:w-[250px]" />

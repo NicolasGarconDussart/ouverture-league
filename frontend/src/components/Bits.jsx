@@ -18,6 +18,25 @@ export const MaskedTitle = ({ lines, className = "", delay = 0, as: Tag = "h1", 
   </Tag>
 );
 
+export const PageHead = ({ eyebrow, title, children }) => (
+  <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+    <div>
+      <p className="eyebrow">{eyebrow}</p>
+      <MaskedTitle lines={[title]} className="font-display text-4xl italic leading-none sm:text-5xl lg:text-6xl" testId="page-title" />
+    </div>
+    {children}
+  </div>
+);
+
+export const Empty = ({ icon: Icon, title, text, children, testId }) => (
+  <div className="empty panel" data-testid={testId}>
+    {Icon && <Icon className="h-8 w-8 text-[var(--gold-hi)]" />}
+    <p className="font-display text-2xl italic">{title}</p>
+    <p className="max-w-sm text-sm text-[var(--muted)]">{text}</p>
+    {children}
+  </div>
+);
+
 export const Marquee = ({ items, className = "" }) => (
   <div className={`marquee ${className}`} aria-hidden="true">
     <div className="marquee__track">

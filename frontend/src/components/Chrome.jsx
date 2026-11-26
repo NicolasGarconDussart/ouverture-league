@@ -1,46 +1,10 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ArrowLeftRight, Backpack, BarChart3, BookOpen, RotateCcw, Settings2, Store, Trophy } from "lucide-react";
+import { ArrowLeftRight, Backpack, BarChart3, BookOpen, Crown, Home, RotateCcw, Settings2, Store, Trophy } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Switch } from "./ui/switch";
 import { toast } from "./ui/sonner";
 import { ASSETS, PROFILE } from "../data/game";
-import { useGame } from "../state/game";
-
-const DIRS = [
-  { id: "table", short: "Table", full: "Table de collection" },
-  { id: "arena", short: "Arène", full: "Arène Cross League" },
-];
-
-const DirectionSwitch = () => {
-  const { state, dispatch } = useGame();
-  const set = (v) => dispatch({ type: "direction", value: v });
-  const onKey = (e) => {
-    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-      e.preventDefault();
-      set(state.direction === "table" ? "arena" : "table");
-    }
-  };
-  return (
-    <div role="radiogroup" aria-label="Direction visuelle" className="dir-switch" onKeyDown={onKey} data-testid="composition-direction-selector">
-      {DIRS.map((d) => (
-        <button
-          key={d.id}
-          type="button"
-          role="radio"
-          aria-checked={state.direction === d.id}
-          tabIndex={state.direction === d.id ? 0 : -1}
-          title={d.full}
-          onClick={() => set(d.id)}
-          className={state.direction === d.id ? "is-on" : ""}
-          data-testid={`direction-${d.id}`}
-        >
-          <span className="sm:hidden">{d.short}</span>
-          <span className="hidden sm:inline">{d.full}</span>
-        </button>
-      ))}
-    </div>
-  );
-};
+import { isPro, useGame } from "../state/game";
 
 const SettingsMenu = () => {
   const { state, dispatch } = useGame();
@@ -64,11 +28,19 @@ const SettingsMenu = () => {
         <button
           type="button"
           className="btn-ghost mt-3 w-full py-2.5 text-sm"
+          data-testid="home-link-button"
+          onClick={() => nav("/")}
+        >
+          <Home className="h-4 w-4" /> Revenir à l’accueil
+        </button>
+        <button
+          type="button"
+          className="btn-ghost mt-2 w-full py-2.5 text-sm"
           data-testid="reset-demo-button"
           onClick={() => {
             dispatch({ type: "reset" });
             nav("/");
-            toast("Démo remise à zéro", { description: "Réserve 3/10, profil et classeur réinitialisés." });
+            toast("Démo remise à zéro", { description: "Profil, réserve 3/10, Sac, Marché et Classeur réinitialisés." });
           }}
         >
           <RotateCcw className="h-4 w-4" /> Remettre la démo à zéro
@@ -83,19 +55,18 @@ export const TopBar = () => {
   return (
     <header className="topbar" data-testid="top-bar">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:px-8">
-        <Link to="/" data-testid="brand-home-link" aria-label="League Master, Ouverture" className="shrink-0">
+        <Link to="/ouverture" data-testid="brand-home-link" aria-label="League Master, Ouverture" className="shrink-0">
           <img src={ASSETS.logo} alt="League Master" className="h-10 w-auto" />
         </Link>
         <div className="hidden items-center gap-2.5 md:flex" data-testid="profile-chip">
           <span className="avatar">{PROFILE.initials}</span>
           <span className="leading-tight">
-            <span className="block text-sm font-semibold">{PROFILE.name}</span>
+            <span className="block text-sm font-semibold">{PROFILE.name}{isPro(state) && <span className="pro-pill"><Crown className="h-3 w-3" /> Pro</span>}</span>
             <span className="block text-xs text-[var(--muted)]">{PROFILE.tag} · AETHRA</span>
           </span>
         </div>
         <div className="ml-auto flex items-center gap-2">
           <span className="cc-chip" data-testid="cc-balance">{state.cc} CC</span>
-          <DirectionSwitch />
           <SettingsMenu />
         </div>
       </div>
@@ -104,23 +75,21 @@ export const TopBar = () => {
 };
 
 const ITEMS = [
-  { id: "boutique", label: "Boutique", icon: Store },
+  { id: "boutique", label: "Boutique", icon: Store, to: "/boutique" },
   { id: "classeur", label: "Classeur", icon: BookOpen, to: "/classeur" },
-  { id: "marche", label: "Marché", icon: ArrowLeftRight },
-  { id: "ouverture", label: "Ouverture", to: "/", main: true },
-  { id: "sac", label: "Sac", icon: Backpack },
-  { id: "succes", label: "Succès", icon: Trophy },
-  { id: "classements", label: "Classements", icon: BarChart3 },
+  { id: "marche", label: "Marché", icon: ArrowLeftRight, to: "/marche" },
+  { id: "ouverture", label: "Ouverture", to: "/ouverture", main: true },
+  { id: "sac", label: "Sac", icon: Backpack, to: "/sac" },
+  { id: "succes", label: "Succès", icon: Trophy, to: "/succes" },
+  { id: "classements", label: "Classements", icon: BarChart3, to: "/classements" },
 ];
 
 export const Dock = () => {
   const { pathname } = useLocation();
   const nav = useNavigate();
-  const active = pathname.startsWith("/classeur") ? "classeur" : "ouverture";
-  const go = (it) => {
-    if (it.to) nav(it.to);
-    else toast(`${it.label} · deuxième passe`, { description: "Cet écran sera conçu dans la direction retenue." });
-  };
+  const hit = ITEMS.find((it) => !it.main && pathname.startsWith(it.to));
+  const active = hit ? hit.id : "ouverture";
+  const go = (it) => nav(it.to);
   return (
     <nav className="dock" aria-label="Navigation principale" data-testid="bottom-dock">
       {ITEMS.map((it) => {
@@ -133,7 +102,7 @@ export const Dock = () => {
             onClick={() => go(it)}
             aria-current={on ? "page" : undefined}
             aria-label={it.label}
-            className={`dock-item ${on ? "is-on" : ""} ${it.main ? "is-main" : ""} ${it.to ? "" : "is-soon"}`}
+            className={`dock-item ${on ? "is-on" : ""} ${it.main ? "is-main" : ""}`}
             data-testid={`dock-${it.id}`}
           >
             {it.main ? (

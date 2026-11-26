@@ -4,8 +4,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, FastForward, RotateCw, Sparkles } from "lucide-react";
 import { GameCard, CardBack } from "../components/GameCard";
 import { Tilt } from "../components/Tilt";
-import { FINISHES, LEVELS, NEXT_HINTS, RARITIES, cardByNo, levelFromXp, pad } from "../data/game";
+import { FINISHES, LEVELS, RARITIES, cardByNo, levelFromXp, pad } from "../data/game";
 import { useGame, useReduce } from "../state/game";
+
+const SOURCE = { reserve: "Classique Cross League", classic: "Classique Cross League", team: "Booster d’équipe AETHRA", pro: "Journalier Pro" };
 
 const Burst = () => (
   <span className="burst" aria-hidden="true">
@@ -30,8 +32,7 @@ const Flip = ({ card, flipped, onFlip }) => (
   </button>
 );
 
-const Hint = ({ i, hidden }) => {
-  const h = NEXT_HINTS[i];
+const Hint = ({ h, hidden }) => {
   if (hidden) return <p className="text-sm text-[var(--ink)]" data-testid="reveal-last-hint">La dernière carte est au moins <b>Brillante</b>. Retourne-la quand tu veux.</p>;
   if (!h) return <p className="text-sm text-[var(--muted)]" data-testid="reveal-done-hint">Tirage complet. Tout est rangé au Classeur.</p>;
   const r = RARITIES[h.min];
@@ -82,7 +83,7 @@ export default function Revelation() {
     return () => window.removeEventListener("keydown", on);
   }, [primary]);
 
-  if (!draw) return <Navigate to="/" replace />;
+  if (!draw) return <Navigate to="/ouverture" replace />;
 
   const card = cards[i];
   const r = RARITIES[card.rarity];
@@ -108,7 +109,7 @@ export default function Revelation() {
       <div className="relative z-[2] mx-auto flex max-w-6xl flex-col px-4 pb-10 pt-4 sm:px-8 lg:pt-8">
         <div className="flex items-center justify-between gap-3">
           <div>
-            <p className="eyebrow hidden sm:block">{draw.source === "team" ? "Booster d’équipe AETHRA" : "Classique Cross League"} · 5 cartes</p>
+            <p className="eyebrow hidden sm:block">{SOURCE[draw.source]} · {cards.length} cartes</p>
             <h1 className="font-display text-2xl sm:text-4xl" data-testid="reveal-counter">
               Carte {String(i + 1).padStart(2, "0")} <span className="text-[var(--muted)]">/ {String(cards.length).padStart(2, "0")}</span>
             </h1>
@@ -190,7 +191,7 @@ export default function Revelation() {
               </div>
             </div>
 
-            <Hint i={i} hidden={hidden} />
+            <Hint h={draw.hints?.[i]} hidden={hidden} />
 
             <button type="button" className="btn-gold w-full py-4" onClick={primary} data-testid="reveal-next-card-button">
               {hidden ? <RotateCw className="h-5 w-5" /> : i < last ? <ArrowRight className="h-5 w-5" /> : <Sparkles className="h-5 w-5" />}
